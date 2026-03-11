@@ -1,4 +1,4 @@
-﻿namespace Astronomy;
+﻿namespace Astronomy.core;
 
 public struct Position {
     public double X { get; set;}

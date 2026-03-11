@@ -1,16 +1,45 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Astronomy", "Astronomy\Astronomy.csproj", "{724F2EA6-8FCD-43A2-835A-328F8A5416D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Astronomy.Core", "Astronomy.Core\Astronomy.Core.csproj", "{0A9F02E6-3119-49C5-8277-C0DED92CF82A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Astronomy.Maui", "Astronomy.Maui\Astronomy.Maui.csproj", "{66010AE5-4935-405A-969D-A07FDB392ECE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{724F2EA6-8FCD-43A2-835A-328F8A5416D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{724F2EA6-8FCD-43A2-835A-328F8A5416D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{724F2EA6-8FCD-43A2-835A-328F8A5416D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{724F2EA6-8FCD-43A2-835A-328F8A5416D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Debug|x64.Build.0 = Debug|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Debug|x86.Build.0 = Debug|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Release|x64.ActiveCfg = Release|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Release|x64.Build.0 = Release|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Release|x86.ActiveCfg = Release|Any CPU
+		{0A9F02E6-3119-49C5-8277-C0DED92CF82A}.Release|x86.Build.0 = Release|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Debug|x64.Build.0 = Debug|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Debug|x86.Build.0 = Debug|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Release|x64.ActiveCfg = Release|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Release|x64.Build.0 = Release|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Release|x86.ActiveCfg = Release|Any CPU
+		{66010AE5-4935-405A-969D-A07FDB392ECE}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
