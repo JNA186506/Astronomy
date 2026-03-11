@@ -3,13 +3,27 @@ using Astronomy.core;
 
 public partial class MainPage : ContentPage {
 
+	private DrawSolarSystem drawSolarSystem = new();
+
 	public MainPage()
 	{
 		InitializeComponent();
 
-		draw.Drawable = new DrawSolarSystem();
-		
-		
+		draw.Drawable = drawSolarSystem;
+
+		IDispatcherTimer timer = Application.Current.Dispatcher.CreateTimer();
+
+		timer.Interval = TimeSpan.FromMilliseconds(100);
+		timer.Tick += Timer_Tick;
+		timer.Start();
 	}
+
+	private void Timer_Tick(object sender, EventArgs e) {
+
+		drawSolarSystem.Time += 1;
+		draw.Invalidate();
+	}
+	
+	
 
 }

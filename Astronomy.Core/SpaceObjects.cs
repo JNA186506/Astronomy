@@ -14,13 +14,14 @@ public struct Position {
 
 public class SpaceObject {
     public SpaceObject(string name, double orbitalRadius = 0, double orbitalPeriod = 0, 
-        double objectRadius = 0, double rotationalPeriod = 0) {
+        double objectRadius = 0, double rotationalPeriod = 0, String color = "") {
         
         Name = name;
         OrbitalRadius = orbitalRadius;
         OrbitalPeriod = orbitalPeriod;
         ObjectRadius = objectRadius;
         RotationalPeriod = rotationalPeriod;
+        Color = color;
     }
 
     public string Name { get; protected set; }
@@ -28,6 +29,8 @@ public class SpaceObject {
     public double OrbitalPeriod { get; protected set; }
     public double ObjectRadius { get; protected set; }
     public double RotationalPeriod { get; protected set; }
+    
+    public string Color { get; set; }
  
     public virtual void Draw() {
         Console.WriteLine(Name);
@@ -54,8 +57,8 @@ public class SpaceObject {
 
 public class Star : SpaceObject {
     public Star(string name, double orbitalRadius = 0, double orbitalPeriod = 0, 
-        double objectRadius = 0, double rotationalPeriod = 0) : 
-        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod) {
+        double objectRadius = 0, double rotationalPeriod = 0, string color = "") : 
+        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod, color) {
         
     }
 
@@ -71,8 +74,8 @@ public class Star : SpaceObject {
 
 public class Planet : SpaceObject {
     public Planet(string name, double orbitalRadius = 0, double orbitalPeriod = 0, 
-        double objectRadius = 0, double rotationalPeriod = 0) : 
-        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod) {
+        double objectRadius = 0, double rotationalPeriod = 0, string color = "") : 
+        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod, color) {
         
     }
     
@@ -86,8 +89,8 @@ public class Moon : SpaceObject {
     private SpaceObject _ParentPlanet;
     
     public Moon(string name, Planet parentPlanet, double orbitalRadius = 0, double orbitalPeriod = 0, 
-        double objectRadius = 0, double rotationalPeriod = 0) : 
-        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod) {
+        double objectRadius = 0, double rotationalPeriod = 0, string color = "") : 
+        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod, color) {
         
         _ParentPlanet = parentPlanet;
     }
@@ -129,8 +132,8 @@ public class Moon : SpaceObject {
 
 public class DwarfPlanet : SpaceObject {
     public DwarfPlanet(string name, double orbitalRadius = 0, double orbitalPeriod = 0, 
-        double objectRadius = 0, double rotationalPeriod = 0) : 
-        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod) {
+        double objectRadius = 0, double rotationalPeriod = 0, string color = "") : 
+        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod, color) {
         
     }
     
@@ -142,8 +145,8 @@ public class DwarfPlanet : SpaceObject {
 
 public class Asteriod : SpaceObject {
     public Asteriod(string name, double orbitalRadius = 0, double orbitalPeriod = 0, 
-        double objectRadius = 0, double rotationalPeriod = 0) : 
-        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod) {
+        double objectRadius = 0, double rotationalPeriod = 0, string color = "") : 
+        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod, color) {
         
     }
     
@@ -158,8 +161,8 @@ public class AsteriodBelt : SpaceObject {
     private double _OuterRadius;
     
     public AsteriodBelt(string name, double innerRadius, double outerRadius, double orbitalRadius = 0, double orbitalPeriod = 0, 
-        double objectRadius = 0, double rotationalPeriod = 0) : 
-        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod) {
+        double objectRadius = 0, double rotationalPeriod = 0, string color = "") : 
+        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod, color) {
         
         _InnerRadius = innerRadius;
         _OuterRadius = outerRadius;
@@ -177,8 +180,8 @@ public class AsteriodBelt : SpaceObject {
 
 public class Comet : SpaceObject {
     public Comet(string name, double orbitalRadius = 0, double orbitalPeriod = 0, 
-        double objectRadius = 0, double rotationalPeriod = 0) : 
-        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod) {
+        double objectRadius = 0, double rotationalPeriod = 0, string color = "") : 
+        base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod, color) {
         
     }
     
