@@ -13,14 +13,14 @@ public partial class MainPage : ContentPage {
 
 		IDispatcherTimer timer = Application.Current.Dispatcher.CreateTimer();
 
-		timer.Interval = TimeSpan.FromMilliseconds(100);
+		timer.Interval = TimeSpan.FromMilliseconds(60);
 		timer.Tick += Timer_Tick;
 		timer.Start();
 	}
 
 	private void Timer_Tick(object sender, EventArgs e) {
 
-		drawSolarSystem.Time += 1;
+		drawSolarSystem.Time += 0.5;
 		draw.Invalidate();
 	}
 	

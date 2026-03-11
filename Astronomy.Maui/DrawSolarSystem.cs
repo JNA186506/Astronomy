@@ -1,5 +1,4 @@
 ﻿using Astronomy.core;
-using Microsoft.Maui.Graphics;
 
 namespace Astronomy.Maui;
 
@@ -7,8 +6,10 @@ public class DrawSolarSystem : IDrawable {
 
     private readonly InitSystem planets = new();
 
-    private const float Scale = 10_000f;
-    private const float DistanceScale = 1_000_000f;
+    private const float Scale = 1000f;
+    private const float DistanceScale = 2_000_000f;
+    private const float MinObjectSize = 4f;
+    private const float MaxObjectSize = 30f;
 
     public double Time { get; set; }
 
@@ -20,10 +21,13 @@ public class DrawSolarSystem : IDrawable {
             Color color = GetBodyColor(planet);
             
             var planetPosition = planet.CalculatePosition(Time);
+            
             var planetDisplayPosition = ToScreenPosition(planetPosition, center);
             DrawSpaceObject(canvas, planet, planetDisplayPosition, color);
             
+            DrawOrbitalPath(canvas, planet, center);
         }
+        
     }
 
 
@@ -34,13 +38,27 @@ public class DrawSolarSystem : IDrawable {
     private static PointF GetCanvasCenter(RectF dirtyRect) => dirtyRect.Center;
 
     private static double GetDisplayRadius(SpaceObject spaceObject) {
-        return (double) spaceObject.ObjectRadius / Scale;
+
+        if (spaceObject is Star) {
+            return Math.Max(spaceObject.OrbitalRadius / Scale, MaxObjectSize);
+        }
+        return Math.Max(spaceObject.ObjectRadius / Scale, MinObjectSize);
     }
 
     private static PointF ToScreenPosition(Position pos, PointF center) {
         return new PointF(
             center.X - (float)(pos.X / DistanceScale),
             center.Y - (float)(pos.Y / DistanceScale));
+    }
+
+    private static float GetDisplayPath(SpaceObject spaceObject) {
+        return (float) spaceObject.OrbitalRadius / DistanceScale;
+    }
+
+    private static void DrawOrbitalPath(ICanvas canvas, SpaceObject spaceObject, PointF center) {
+        canvas.StrokeColor = Colors.Grey;
+        canvas.StrokeSize = 1;
+        canvas.DrawCircle(center.X, center.Y, GetDisplayPath(spaceObject));
     }
 
     private static void DrawSpaceObject(ICanvas canvas, SpaceObject spaceObject, PointF position, Color color) {
