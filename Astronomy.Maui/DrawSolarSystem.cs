@@ -8,10 +8,10 @@ public class DrawSolarSystem : IDrawable {
 
     private const float Scale = 1000f;
     private const float DistanceScale = 2_000_000f;
-    private const float MinObjectSize = 4f;
-    private const float MaxObjectSize = 30f;
+    private const float MaxObjectSize = 20f;
 
     public double Time { get; set; }
+    public double Speed { get; set; }
 
     public void Draw(ICanvas canvas, RectF dirtyRect) {
 
@@ -19,13 +19,14 @@ public class DrawSolarSystem : IDrawable {
 
         foreach (var planet in planets.solarSystem) {
             Color color = GetBodyColor(planet);
+
+            Time = Speed + Time;
             
             var planetPosition = planet.CalculatePosition(Time);
             
             var planetDisplayPosition = ToScreenPosition(planetPosition, center);
-            DrawSpaceObject(canvas, planet, planetDisplayPosition, color);
+            DrawSpaceObject(canvas, planet, planetDisplayPosition, center, color);
             
-            DrawOrbitalPath(canvas, planet, center);
         }
         
     }
@@ -42,7 +43,7 @@ public class DrawSolarSystem : IDrawable {
         if (spaceObject is Star) {
             return Math.Max(spaceObject.OrbitalRadius / Scale, MaxObjectSize);
         }
-        return Math.Max(spaceObject.ObjectRadius / Scale, MinObjectSize);
+        return spaceObject.ObjectRadius / Scale;
     }
 
     private static PointF ToScreenPosition(Position pos, PointF center) {
@@ -54,14 +55,12 @@ public class DrawSolarSystem : IDrawable {
     private static float GetDisplayPath(SpaceObject spaceObject) {
         return (float) spaceObject.OrbitalRadius / DistanceScale;
     }
-
-    private static void DrawOrbitalPath(ICanvas canvas, SpaceObject spaceObject, PointF center) {
+    
+    private static void DrawSpaceObject(ICanvas canvas, SpaceObject spaceObject, PointF position, PointF center, Color color) {
         canvas.StrokeColor = Colors.Grey;
         canvas.StrokeSize = 1;
         canvas.DrawCircle(center.X, center.Y, GetDisplayPath(spaceObject));
-    }
-
-    private static void DrawSpaceObject(ICanvas canvas, SpaceObject spaceObject, PointF position, Color color) {
+        
         canvas.FillColor = color;
         canvas.FillCircle(position, GetDisplayRadius(spaceObject));
     }

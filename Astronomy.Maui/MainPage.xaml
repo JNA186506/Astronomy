@@ -2,8 +2,51 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Astronomy.Maui.MainPage">
-    <GraphicsView x:Name="draw">
+    <Grid>
         
-    </GraphicsView>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <Button x:Name="LessSpeed" Text="-"
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="10" 
+                Clicked="ButtonLessSpeed"
+                BackgroundColor="SlateGrey"
+                TextColor="White"/>
+        <Button x:Name="Pause"
+                Text="||"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="10"
+                Clicked="ButtonPause"
+                BackgroundColor="SlateGrey"
+                TextColor="White"/>
+        <Button x:Name="MoreSpeed"
+                Text="+"
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="10" 
+                Clicked="ButtonMoreSpeed"
+                BackgroundColor="SlateGrey"
+                TextColor="White"/>
+        
+        <GraphicsView x:Name="draw" 
+                      Grid.Row="1"
+                      Grid.Column= "0"
+                      Grid.ColumnSpan="4"/>
+        <CollectionView Grid.Row="1"
+                  Grid.Column="4" />
+        
+    </Grid>
 </ContentPage>
