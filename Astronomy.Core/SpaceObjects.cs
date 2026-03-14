@@ -14,7 +14,7 @@ public struct Position {
 
 public class SpaceObject {
     public SpaceObject(string name, double orbitalRadius = 0, double orbitalPeriod = 0, 
-        double objectRadius = 0, double rotationalPeriod = 0, String color = "") {
+        double objectRadius = 0, double rotationalPeriod = 0, string color = "") {
         
         Name = name;
         OrbitalRadius = orbitalRadius;
@@ -29,7 +29,7 @@ public class SpaceObject {
     public double OrbitalPeriod { get; protected set; }
     public double ObjectRadius { get; protected set; }
     public double RotationalPeriod { get; protected set; }
-    
+    public List<SpaceObject> Moons { get; set; }
     public string Color { get; set; }
  
     public virtual void Draw() {
@@ -73,11 +73,15 @@ public class Star : SpaceObject {
 }
 
 public class Planet : SpaceObject {
+    private List<SpaceObject>? moons;
     public Planet(string name, double orbitalRadius = 0, double orbitalPeriod = 0, 
-        double objectRadius = 0, double rotationalPeriod = 0, string color = "") : 
+        double objectRadius = 0, double rotationalPeriod = 0, List<SpaceObject>? moons = null, string color = "") : 
         base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod, color) {
-        
+
+        Moons = moons;
     }
+    
+    public List<SpaceObject>? Moons { get; set; }
     
     public override void Draw() {
         Console.WriteLine("Planet : ");
@@ -88,7 +92,7 @@ public class Planet : SpaceObject {
 public class Moon : SpaceObject {
     private SpaceObject _ParentPlanet;
     
-    public Moon(string name, Planet parentPlanet, double orbitalRadius = 0, double orbitalPeriod = 0, 
+    public Moon(string name, SpaceObject parentPlanet, double orbitalRadius = 0, double orbitalPeriod = 0, 
         double objectRadius = 0, double rotationalPeriod = 0, string color = "") : 
         base(name, orbitalRadius, orbitalPeriod, objectRadius, rotationalPeriod, color) {
         

@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:core="clr-namespace:Astronomy.core;assembly=Astronomy.Core"
-             x:Class="Astronomy.Maui.MainPage">
+             x:Class="Astronomy.Maui.PlanetPage">
     <ContentPage.Resources>
         <Style TargetType="Button">
             <Setter Property="BackgroundColor" Value="#1e3a5f" />
             <Setter Property="TextColor" Value="White" />
-            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontSize" Value="18" />
             <Setter Property="Margin" Value="3" />
         </Style>
     </ContentPage.Resources>
@@ -49,23 +49,18 @@
         
         <VerticalStackLayout Grid.Row="0" Grid.Column="2">
             <HorizontalStackLayout Spacing="6">
-                <Button Text="x0.5"
-                        Clicked="HalfTimesZoom_OnClicked"/>
-                <Button Text="x1" 
-                        Clicked="OneTimesZoom_OnClicked" /> 
+                <Button Text="x1"
+                        Clicked="OneTimesZoom_OnClicked" />
                 <Button Text="x5"
                         Clicked="FiveTimesZoom_OnClicked" />
-                <Button Text="x20"
-                        Clicked="TwentyTimesZoom_OnClicked"/>
                 <Button Text="Hide text"
                         Clicked="HideText_OnClicked"/> 
             </HorizontalStackLayout>
-        </VerticalStackLayout>
-
-       
+        </VerticalStackLayout> 
+     
         <Label Grid.Row="0" Grid.Column="3"
-               Text="{Binding DrawSolarSystem.Time, StringFormat='Days: {0:F1}'}"
-               />
+               Text="{Binding DrawPlanetPage.MoonTime, StringFormat='Days: {0:F1}'}"
+        />
         
         <GraphicsView x:Name="draw" 
                       Grid.Row="1"
@@ -74,7 +69,7 @@
                       />
         
         <Picker Grid.Row="1" Grid.Column="3"
-                Title=""
+                Title="Select a planet"
                 ItemsSource="{Binding Planets}"
                 ItemDisplayBinding="{Binding Name}"
                 SelectedIndexChanged="OnPlanetPicked"

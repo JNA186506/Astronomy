@@ -4,34 +4,31 @@ using Astronomy.core;
 
 namespace Astronomy.Maui;
 
-public class DrawSolarSystem : IDrawable, INotifyPropertyChanged {
-
-    private double _time;
-
-    private readonly InitSystem planets = new();
-
-    private float _scale = 2000f;
-    private float _distanceScale = 3_000_000f;
-    private const float MaxObjectSize = 10f;
-
+public class DrawPlanetPage : IDrawable, INotifyPropertyChanged {
+    private double _moonTime;
+    
+    private float _scale = 100f;
+    private float _distanceScale = 2000f;
+    private const float MaxPlanetSize = 20f;
+   
     private bool _hideText;
     public bool HideText {
         get => _hideText;
         set => _hideText = value;
     }
 
+    private Planet _planet;
 
-    public double Time { 
-        get => _time;
+    public double MoonTime { 
+        get => _moonTime;
         set {
-            if (_time != value) {
-                _time = value;
+            if (_moonTime != value) {
+                _moonTime = value;
                 OnPropertyChanged();
-            }
-        }
-    }
-    public double Speed { get; set; }
-    
+            } 
+        } }  
+    public double MoonSpeed { get; set; }
+
     public float DistanceScale {
         get => _distanceScale;
         set => _distanceScale = value;
@@ -42,22 +39,37 @@ public class DrawSolarSystem : IDrawable, INotifyPropertyChanged {
         set => _scale = value;
     }
 
-    public void Draw(ICanvas canvas, RectF dirtyRect) {
+    public DrawPlanetPage(Planet planet) {
+        _planet = planet;
+    }
 
+    public void Draw(ICanvas canvas, RectF dirtyRect) {
         var center = GetCanvasCenter(dirtyRect);
 
-        foreach (var planet in planets.solarSystem) {
-            Color color = GetBodyColor(planet);
-
-            var planetPosition = planet.CalculatePosition(Time);
-            
-            var planetDisplayPosition = ToScreenPosition(planetPosition, center);
-
-            DrawSpaceObject(canvas, planet, planetDisplayPosition, center, color);
-            
-        }
+        canvas.FillColor = Color.Parse(_planet.Color);
+        canvas.FillCircle(center, GetDisplayRadius(_planet));
+        DrawLabel(canvas, _planet.Name, center, GetDisplayRadius(_planet));
         
+        if (_planet.Moons != null) {
+            var planetWorldPosition = _planet.CalculatePosition(MoonTime);
+            foreach (var moon in _planet.Moons) {
+                Color color = GetBodyColor(moon);
+
+                var moonWorldPosition = moon.CalculatePosition(MoonTime);
+                var moonRelativePosition = new Position(
+                    moonWorldPosition.X - planetWorldPosition.X,
+                    moonWorldPosition.Y - planetWorldPosition.Y);
+
+
+                var planetDisplayPosition = ToScreenPosition(moonRelativePosition, center);
+
+                DrawSpaceObject(canvas, moon, planetDisplayPosition, center, color);
+
+            }
+        }
+
     }
+    
     private Color GetBodyColor(SpaceObject planet) {
         return Color.Parse(planet.Color);
     }
@@ -65,21 +77,17 @@ public class DrawSolarSystem : IDrawable, INotifyPropertyChanged {
     private PointF GetCanvasCenter(RectF dirtyRect) => dirtyRect.Center;
 
     private double GetDisplayRadius(SpaceObject spaceObject) {
-        
-        if (DistanceScale > 3_000_000 && spaceObject is Star)
-            return Math.Min(spaceObject.ObjectRadius / Scale, MaxObjectSize / 10);
-        
-        return Math.Min(spaceObject.ObjectRadius / Scale, MaxObjectSize);
+        return Math.Min(spaceObject.ObjectRadius / Scale, MaxPlanetSize);
     }
 
     private PointF ToScreenPosition(Position pos, PointF center) {
         return new PointF(
-            center.X - (float)(pos.X / DistanceScale),
+            center.X - (float)(pos.X / _distanceScale),
             center.Y - (float)(pos.Y / DistanceScale));
     }
 
     private float GetDisplayPath(SpaceObject spaceObject) {
-        return (float)spaceObject.OrbitalRadius / DistanceScale;
+        return (float) spaceObject.OrbitalRadius / DistanceScale;
     }
     
     private void DrawSpaceObject(ICanvas canvas, SpaceObject spaceObject, PointF position, PointF center, Color color) {
@@ -92,11 +100,9 @@ public class DrawSolarSystem : IDrawable, INotifyPropertyChanged {
         
         canvas.FillColor = color;
         canvas.FillCircle(position, radius);
-        
         if (!HideText) {
             DrawLabel(canvas, spaceObject.Name, position, radius);
         }
- 
     }
 
     private void DrawLabel(ICanvas canvas, string text, PointF position, double radius) {
@@ -104,23 +110,18 @@ public class DrawSolarSystem : IDrawable, INotifyPropertyChanged {
         canvas.FontSize = 12;
         canvas.DrawString(
             text,
-            position.X - 20,
+            position.X - 25,
             position.Y + (float)radius + 4,
-            40,
+            55,
             20,
             HorizontalAlignment.Center,
             VerticalAlignment.Top);
     }
 
-
     public event PropertyChangedEventHandler? PropertyChanged;
+
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null) {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    } 
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null) {
-        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
     }
+
 }
