@@ -46,13 +46,6 @@ public class SpaceObject {
         return new Position(x, y);
     }
 
-    public virtual Position GetPolarPosition(Position position, double scale = 1) {
-        double distance = Math.Sqrt(position.X * position.X + position.Y * position.Y) / scale;
-        double angle = Math.Atan2(position.Y, position.X);
-        
-        return new Position(distance, angle);
-    }
-
 }
 
 public class Star : SpaceObject {
@@ -63,8 +56,6 @@ public class Star : SpaceObject {
     }
 
     public override Position CalculatePosition(double time) => new Position(0, 0);
-    
-    public override Position GetPolarPosition(Position position, double scale = 1) => new Position(0, 0);
     
     public override void Draw() {
         Console.WriteLine("Star : ");
@@ -116,18 +107,6 @@ public class Moon : SpaceObject {
         return new Position(parentPosition.X + x, parentPosition.Y + y);
     }
 
-    public override Position GetPolarPosition(Position position, double scale = 1) {
-        Position parentPosition = _ParentPlanet.GetPolarPosition(position, scale);
-        
-        double dx = position.X - parentPosition.X;
-        double dy = position.Y - parentPosition.Y;
-        
-        double distance = Math.Sqrt(dx * dx + dy * dy) / scale;
-        double angle = Math.Atan2(dy, dx);
-        
-        return new Position(parentPosition.X + distance * Math.Cos(angle), parentPosition.Y + distance * Math.Sin(angle));
-    }
-    
     public override void Draw() {
         Console.WriteLine("Moon : ");
         base.Draw();

@@ -58,20 +58,6 @@ public partial class PlanetPage : ContentPage {
         drawPlanetPage.MoonSpeed += 0.01;
     }
 
-    private void OnPlanetSelection(object? sender, SelectionChangedEventArgs e) {
-        var selected = e.CurrentSelection.FirstOrDefault() as SpaceObject;
-
-        if (sender is CollectionView collectionView)
-            collectionView.SelectedItem = null;
-
-        if (selected is Star)
-            Navigation.PopToRootAsync();
-        
-        if (selected is Planet planet) 
-            Navigation.PushAsync(new PlanetPage(planet));
-        
-    }
-
     private void OnPlanetPicked(object? sender, EventArgs eventArgs) {
         
         if (sender is not Picker picker)

@@ -48,7 +48,10 @@ public class DrawPlanetPage : IDrawable, INotifyPropertyChanged {
 
         canvas.FillColor = Color.Parse(_planet.Color);
         canvas.FillCircle(center, GetDisplayRadius(_planet));
-        DrawLabel(canvas, _planet.Name, center, GetDisplayRadius(_planet));
+        if (!HideText)
+        {
+            DrawLabel(canvas, _planet.Name, center, GetDisplayRadius(_planet));
+        }
         
         if (_planet.Moons != null) {
             var planetWorldPosition = _planet.CalculatePosition(MoonTime);
@@ -112,7 +115,7 @@ public class DrawPlanetPage : IDrawable, INotifyPropertyChanged {
             text,
             position.X - 25,
             position.Y + (float)radius + 4,
-            55,
+            60,
             20,
             HorizontalAlignment.Center,
             VerticalAlignment.Top);
